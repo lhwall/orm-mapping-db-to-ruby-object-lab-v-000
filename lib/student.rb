@@ -18,7 +18,10 @@ class Student
    sql = <<-SQL
      SELECT * FROM students 
      where NAME = ?
+     LIMIT 1
    SQL
+   
+   DB.execute
   end
   
   def save

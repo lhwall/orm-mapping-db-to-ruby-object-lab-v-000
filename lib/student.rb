@@ -53,6 +53,53 @@ class Student
     end 
   end
   
+    def self.first_x_students_in_grade_10(x)
+    sql = <<-SQL 
+    SELECT * FROM students
+    where GRADE = 10 
+    limit ?
+    SQL
+    
+    DB[:conn].execute(sql, x).map do |row|
+      self.new_from_db(row)
+    end 
+  end 
+  
+  
+  def self.first_x_students_in_grade_10
+    sql = <<-SQL 
+    SELECT * FROM students
+    where GRADE = 10 
+    limit 1
+    SQL
+    
+    DB[:conn].execute(sql).map do |row|
+      self.new_from_db(row)
+    end 
+  end 
+  
+   def self.count_all_students_in_grade_x(x)
+    sql = <<-SQL 
+    SELECT * FROM students
+    where GRADE = ?
+    SQL
+    
+    DB[:conn].execute(sql, x).map do |row|
+      self.new_from_db(row)
+    end 
+  end 
+  
+    def self.students_below_12th_grade
+    sql = <<-SQL 
+    SELECT * FROM students
+    where GRADE < ?
+    SQL
+    
+    DB[:conn].execute(sql, 12).map do |row|
+      self.new_from_db(row)
+    end 
+  end
+  
   def save
     sql = <<-SQL
       INSERT INTO students (name, grade) 
@@ -61,6 +108,9 @@ class Student
 
     DB[:conn].execute(sql, self.name, self.grade)
   end
+end 
+
+
   
   def self.create_table
     sql = <<-SQL

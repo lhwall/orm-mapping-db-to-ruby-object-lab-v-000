@@ -69,13 +69,13 @@ class Student
   def self.first_student_in_grade_10
     sql = <<-SQL 
     SELECT * FROM students
-    where GRADE = 10 
-    limit 1
+    WHERE grade = 10 
+    LMIIT 1
     SQL
     
     DB[:conn].execute(sql).map do |row|
       self.new_from_db(row)
-    end 
+    end.first
   end 
   
    def self.count_all_students_in_grade_X(x)
